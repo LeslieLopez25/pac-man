@@ -200,9 +200,17 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var GameBoard = /*#__PURE__*/function () {
   function GameBoard(DOMGrid) {
+    var _this = this;
+
     _classCallCheck(this, GameBoard);
+
+    _defineProperty(this, "objectExist", function (pos, object) {
+      return _this.grid[pos].classList.contains(object);
+    });
 
     this.dotCount = 0;
     this.grid = [];
@@ -220,7 +228,7 @@ var GameBoard = /*#__PURE__*/function () {
   }, {
     key: "createGrid",
     value: function createGrid(level) {
-      var _this = this;
+      var _this2 = this;
 
       this.dotCount = 0;
       this.grid = [];
@@ -231,11 +239,11 @@ var GameBoard = /*#__PURE__*/function () {
         div.classList.add("square", _setup.CLASS_LIST[square]);
         div.style.cssText = "width: ".concat(_setup.CELL_SIZE, "px; height: ").concat(_setup.CELL_SIZE, "px;");
 
-        _this.DOMGrid.appendChild(div);
+        _this2.DOMGrid.appendChild(div);
 
-        _this.grid.push(div);
+        _this2.grid.push(div);
 
-        if (_setup.CLASS_LIST[square] === _setup.OBJECT_TYPE.DOT) _this.dotCount++;
+        if (_setup.CLASS_LIST[square] === _setup.OBJECT_TYPE.DOT) _this2.dotCount++;
       });
     }
   }, {
@@ -251,11 +259,6 @@ var GameBoard = /*#__PURE__*/function () {
       var _this$grid$pos$classL2;
 
       (_this$grid$pos$classL2 = this.grid[pos].classList).remove.apply(_this$grid$pos$classL2, _toConsumableArray(classes));
-    }
-  }, {
-    key: "objectExist",
-    value: function objectExist(pos, object) {
-      return this.grid[pos].classList.contains(object);
     }
   }, {
     key: "rotateDiv",
@@ -276,12 +279,105 @@ var GameBoard = /*#__PURE__*/function () {
 
 var _default = GameBoard;
 exports.default = _default;
+},{"./setup":"setup.js"}],"Pacman.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _setup = require("./setup");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+var Pacman = /*#__PURE__*/function () {
+  function Pacman(speed, startPos) {
+    _classCallCheck(this, Pacman);
+
+    this.pos = startPos;
+    this.speed = speed;
+    this.dir = null;
+    this.timer = 0;
+    this.powerPill = false;
+    this.rotation = true;
+  }
+
+  _createClass(Pacman, [{
+    key: "shouldMove",
+    value: function shouldMove() {
+      if (!this.dir) return false;
+
+      if (this.timer === this.speed) {
+        this.timer = 0;
+        return true;
+      }
+
+      this.timer++;
+    }
+  }, {
+    key: "getNextMove",
+    value: function getNextMove(objectExist) {
+      var nextMovePos = this.pos + this.dir.movement;
+
+      if (objectExist(nextMovePos, _setup.OBJECT_TYPE.Wall) || objectExist(nextMovePos, _setup.OBJECT_TYPE.GHOSTLAIR)) {
+        nextMovePos = this.pos;
+      }
+
+      return {
+        nextMovePos: nextMovePos,
+        direction: this.dir
+      };
+    }
+  }, {
+    key: "makeMove",
+    value: function makeMove() {
+      var classesToRemove = [_setup.OBJECT_TYPE.PACMAN];
+      var classesToAdd = [_setup.OBJECT_TYPE.PACMAN];
+      return {
+        classesToRemove: classesToRemove,
+        classesToAdd: classesToAdd
+      };
+    }
+  }, {
+    key: "setNewPos",
+    value: function setNewPos(nextMovePos) {
+      this.pos = nextMovePos;
+    }
+  }, {
+    key: "handleKeyInput",
+    value: function handleKeyInput(e, objectExist) {
+      var dir;
+
+      if (e.keyCode >= 37 && e.keyCode <= 40) {
+        dir = _setup.DIRECTIONS[e.key];
+      } else {
+        return;
+      }
+
+      var nextMovePos = this.pos + dir.movement;
+      if (objectExist(nextMovePos, _setup.OBJECT_TYPE.WALL)) return;
+      this.dir = dir;
+    }
+  }]);
+
+  return Pacman;
+}();
+
+var _default = Pacman;
+exports.default = _default;
 },{"./setup":"setup.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _setup = require("./setup");
 
 var _GameBoard = _interopRequireDefault(require("./GameBoard"));
+
+var _Pacman = _interopRequireDefault(require("./Pacman"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -310,8 +406,22 @@ function checkCollision(pacman, ghosts) {}
 
 function gameLoop(pacman, ghosts) {}
 
-function startGame() {}
-},{"./setup":"setup.js","./GameBoard":"GameBoard.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+function startGame() {
+  gameWin = false;
+  powerPillActive = false;
+  score = 0;
+  startButton.classList.add("hide");
+  gameBoard.createGrid(_setup.LEVEL);
+  var pacman = new _Pacman.default(2, 287);
+  gameBoard.addObject(287, [_setup.OBJECT_TYPE.PACMAN]);
+  document.addEventListener("keydown", function (e) {
+    return pacman.handleKeyInput(e, gameBoard.objectExist);
+  });
+} // INITIALIZE GAME
+
+
+startButton.addEventListener("click", startGame);
+},{"./setup":"setup.js","./GameBoard":"GameBoard.js","./Pacman":"Pacman.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -339,7 +449,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "22927" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "1069" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
