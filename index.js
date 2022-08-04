@@ -6,7 +6,7 @@ import Pacman from "./Pacman";
 // DOM ELEMENTS
 const gameGrid = document.querySelector("#game");
 const scoreTable = document.querySelector("#score");
-const startButton = document.querySelector("start-button");
+const startButton = document.querySelector("#start-button");
 
 // GAME CONSTANTS
 const POWER_PILL_TIME = 10000; //ms

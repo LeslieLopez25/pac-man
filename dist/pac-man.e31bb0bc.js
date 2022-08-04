@@ -385,7 +385,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // DOM ELEMENTS
 var gameGrid = document.querySelector("#game");
 var scoreTable = document.querySelector("#score");
-var startButton = document.querySelector("start-button"); // GAME CONSTANTS
+var startButton = document.querySelector("#start-button"); // GAME CONSTANTS
 
 var POWER_PILL_TIME = 10000; //ms
 
@@ -449,7 +449,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "1069" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "1153" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
