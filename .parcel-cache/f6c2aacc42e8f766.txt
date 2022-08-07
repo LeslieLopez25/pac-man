@@ -158,7 +158,7 @@
 123C:\Users\super\Desktop\pac-man\node_modules\@parcel\packager-html\node_modules\@parcel\utils\src\replaceBundleReferences.js133043161700671665 0
 91C:\Users\super\Desktop\pac-man\node_modules\npm\node_modules\fastest-levenshtein\index.d.ts133038059534906449 0
 59C:\Users\super\Desktop\pac-man\node_modules\deep-is\LICENSE133038734259986830 0
-43C:\Users\super\Desktop\pac-man\package.json133043204432953135 0
+43C:\Users\super\Desktop\pac-man\package.json133043211077686700 0
 101C:\Users\super\Desktop\pac-man\node_modules\@parcel\optimizer-terser\node_modules\acorn\dist\acorn.js133043161106184568 0
 61C:\Users\super\Desktop\pac-man\node_modules\parcel\src\bin.js133043161023987270 0
 111C:\Users\super\Desktop\pac-man\node_modules\@parcel\transformer-posthtml\node_modules\@parcel\utils\src\hash.js133043161436145552 0
@@ -16252,7 +16252,7 @@
 82C:\Users\super\Desktop\pac-man\node_modules\@parcel\core\lib\public\BundleGroup.js133043161596774807 0
 81C:\Users\super\Desktop\pac-man\node_modules\@parcel\core\lib\public\Dependency.js133043161672073857 0
 89C:\Users\super\Desktop\pac-man\node_modules\@parcel\core\lib\public\MutableBundleGraph.js133043161770618395 0
-77C:\Users\super\Desktop\pac-man\node_modules\@parcel\config-default\index.json133043205015282813 0
+77C:\Users\super\Desktop\pac-man\node_modules\@parcel\config-default\index.json133043210504655609 0
 74C:\Users\super\Desktop\pac-man\node_modules\@parcel\config-default\LICENSE133043160995340415 0
 96C:\Users\super\Desktop\pac-man\node_modules\@parcel\codeframe\node_modules\ansi-styles\readme.md133043161031681735 0
 74C:\Users\super\Desktop\pac-man\node_modules\@parcel\compressor-raw\LICENSE133043160914966334 0
