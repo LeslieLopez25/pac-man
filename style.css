@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Mitr&display=swap");
+
 * {
   box-sizing: border-box;
 }
@@ -49,6 +51,26 @@ body {
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 2rem;
+}
+
+button {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background: #000080;
+  width: 100px;
+  height: 40px;
+  font-family: "Mitr",
+    sans-serif;
+  color: white;
+  transition: ease .3s;
+  box-shadow: inset 3px 3px 3px 0 rgba(255, 255, 255, 0.5),
+    inset -3px -3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+button:hover {
+  background: #000;
 }
 
 #start-button {
@@ -139,28 +161,24 @@ body {
   background: yellow;
   border: none;
   border-radius: 50%;
-  clip-path: polygon(
-    0 0,
-    20px 0,
-    20px -5px,
-    8px 10px,
-    20px 25px,
-    20px 20px,
-    0 20px
-  );
+  clip-path: polygon(0 0,
+      20px 0,
+      20px -5px,
+      8px 10px,
+      20px 25px,
+      20px 20px,
+      0 20px);
   animation: chew 0.2s linear forwards infinite;
 }
 
 @keyframes chew {
   50% {
-    clip-path: polygon(
-      0 0,
-      20px 0,
-      20px 10px,
-      8px 10px,
-      20px 10px,
-      20px 20px,
-      0 20px
-    );
+    clip-path: polygon(0 0,
+        20px 0,
+        20px 10px,
+        8px 10px,
+        20px 10px,
+        20px 20px,
+        0 20px);
   }
 }
